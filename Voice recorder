@@ -1,0 +1,19 @@
+import pyaudio
+
+p = pyaudio.PyAudio()
+
+stream = p.open(format=pyaudio.paInt16,
+                channels=1,
+                rate=44100,
+                input=True)
+
+stream.start_stream()
+
+recording = stream.read(44100 * 5)
+
+stream.stop_stream()
+
+stream.close()
+
+with open("recording.wav", "wb") as f:
+    f.write(recording)
